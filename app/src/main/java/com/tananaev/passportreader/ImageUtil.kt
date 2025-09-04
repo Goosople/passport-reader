@@ -38,7 +38,7 @@ object ImageUtil {
  */
 fun saveBitmapToInternalStorage(
     context: Context,
-    bitmap: Bitmap,
+    bitmap: Bitmap?,
     filename: String,
     quality: Int = 100
 ): String? {
@@ -48,7 +48,7 @@ fun saveBitmapToInternalStorage(
         val file = File(directory, filename)
         
         FileOutputStream(file).use { fos ->
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, fos)
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, quality, fos)
             fos.flush()
         }
         

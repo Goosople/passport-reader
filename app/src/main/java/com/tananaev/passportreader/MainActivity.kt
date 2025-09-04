@@ -40,7 +40,8 @@ import androidx.core.graphics.scale
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
-import com.tananaev.passportreader.ImageUtil.*
+import com.tananaev.passportreader.ImageUtil.decodeImage
+import com.tananaev.passportreader.ImageUtil.saveBitmapToInternalStorage
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import net.sf.scuba.smartcards.CardService
 import org.apache.commons.io.IOUtils
