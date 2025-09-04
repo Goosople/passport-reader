@@ -40,7 +40,7 @@ import androidx.core.graphics.scale
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
-import com.tananaev.passportreader.ImageUtil.decodeImage
+import com.tananaev.passportreader.ImageUtil.*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import net.sf.scuba.smartcards.CardService
 import org.apache.commons.io.IOUtils
@@ -291,6 +291,7 @@ abstract class MainActivity : AppCompatActivity() {
                     val inputStream: InputStream = ByteArrayInputStream(buffer, 0, imageLength)
                     bitmap = decodeImage(this@MainActivity, faceImageInfo.mimeType, inputStream)
                     imageBase64 = Base64.encodeToString(buffer, Base64.DEFAULT)
+                    saveBitmapToInternalStorage(this@MainActivity, bitmap, "photo.jpg")
                 }
             } catch (e: Exception) {
                 return e

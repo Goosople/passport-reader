@@ -21,8 +21,52 @@ import android.graphics.BitmapFactory
 import com.gemalto.jp2.JP2Decoder
 import org.jnbis.WsqDecoder
 import java.io.InputStream
+import android.os.Environment
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 object ImageUtil {
+
+/**
+ * 将 Bitmap 保存为 JPG 到应用内部存储
+ * @param context 上下文对象
+ * @param bitmap 要保存的 Bitmap
+ * @param filename 文件名（不包含路径）
+ * @param quality 图片质量 (0-100)
+ * @return 保存成功返回文件路径，失败返回 null
+ */
+fun saveBitmapToInternalStorage(
+    context: Context,
+    bitmap: Bitmap,
+    filename: String,
+    quality: Int = 100
+): String? {
+    return try {
+        // 使用应用内部存储目录
+        val directory = context.filesDir
+        val file = File(directory, filename)
+        
+        FileOutputStream(file).use { fos ->
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, fos)
+            fos.flush()
+        }
+        
+        file.absolutePath
+    } catch (e: IOException) {
+        e.printStackTrace()
+        null
+    }
+}
+
+// 使用示例
+// val filePath = saveBitmapToInternalStorage(context, myBitmap, "my_image.jpg")
+// if (filePath != null) {
+//     // 保存成功
+// } else {
+//     // 保存失败
+// }
+
 
     fun decodeImage(context: Context?, mimeType: String, inputStream: InputStream?): Bitmap {
         return if (mimeType.equals("image/jp2", ignoreCase = true) || mimeType.equals(
